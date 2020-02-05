@@ -23,7 +23,11 @@ function runPreFlightChecks() {
         ghUrl             = 'https://api.github.com/rate_limit',
         authGhUrl         = ghUrl + '?access_token=' + token;
 
-  fetch(authGhUrl)
+  fetch(authGhUrl, {
+    headers: {
+      'Authorization': 'token ' + token
+    }
+  })
     .then(function (response) { return response.headers; })
     .then(function (headers)  { return headers.get('x-oauth-scopes')  })
     .then(function (scopes)   { return scopes.split(', '); })
